@@ -1,0 +1,195 @@
+#NEXUS
+begin taxa;
+	dimensions ntax=101;
+	taxlabels
+	'Acorus americanus'
+	'Adiantum capillus-veneris'
+	'Aegilops speltoides'
+	Agrostis
+	'Allium cepa'
+	'Amborella trichopoda'
+	'Ananas comosus'
+	'Antirrhinum majus'
+	'Aquilegia formosa'
+	'Arabidopsis thaliana'
+	'Arachis hypogaea'
+	'Asparagus officinalis'
+	'Avena sativa'
+	'Beta vulgaris'
+	'Brachypodium distachyon'
+	Brassica
+	'Bruguiera gymnorrhiza'
+	'Capsicum annuum'
+	'Ceratopteris richardii'
+	'Chamaecyparis obtusa'
+	'Cichorium intybus'
+	Citrus
+	'Coffea canephora'
+	'Cryptomeria japonica'
+	Cucumis
+	'Curcuma longa'
+	'Cycas rumphii'
+	'Cyclamen persicum'
+	'Eragrostis tef'
+	'Eschscholzia californica'
+	Euphorbia
+	'Festuca arundinacea'
+	'Fragaria vesca'
+	'Gerbera hybrid'
+	'Ginkgo biloba'
+	Glycine
+	'Gnetum gnemon'
+	Gossypium
+	Hedyotis
+	Helianthus
+	'Hevea brasiliensis'
+	'Hordeum vulgare'
+	Ipomoea
+	'Juglans regia'
+	Lactuca
+	'Linum usitatissimum'
+	'Liriodendron tulipifera'
+	Lolium
+	'Lotus japonicus'
+	'Lycoris longituba'
+	'Manihot esculenta'
+	'Marchantia polymorpha'
+	Medicago
+	'Mesembryanthemum crystallinum'
+	'Mimulus guttatus'
+	Nicotiana
+	'Nuphar advena'
+	'Ocimum basilicum'
+	Oryza
+	'Panax ginseng'
+	'Panicum virgatum'
+	'Pennisetum glaucum'
+	'Persea americana'
+	'Phalaenopsis equestris'
+	Phaseolus
+	'Physcomitrella patens'
+	Picea
+	Pinus
+	'Pisum sativum'
+	'Poncirus trifoliata'
+	Populus
+	Prunus
+	'Pseudotsuga menziesii'
+	'Puccinellia tenuiflora'
+	'Ricinus communis'
+	'Robinia pseudoacacia'
+	'Rosa hybrid'
+	Saccharum
+	'Salvia miltiorrhiza'
+	'Saruma henryi'
+	'Secale cereale'
+	Solanum
+	Sorghum
+	'Stevia rebaudiana'
+	'Tamarix androssowii'
+	Taraxacum
+	'Thellungiella salsuginea'
+	'Theobroma cacao'
+	'Thlaspi caerulescens'
+	'Tortula ruralis'
+	'Trifolium pratense'
+	'Triphysaria versicolor'
+	Triticum
+	'Vaccinium corymbosum'
+	Vitis
+	'Welwitschia mirabilis'
+	'Zamia fischeri'
+	'Zantedeschia aethiopica'
+	Zeamays
+	'Zingiber officinale'
+	'Zinnia elegans'
+;
+end;
+
+begin trees;
+	tree tree_1 = [&R] (((('Welwitschia mirabilis':0.352194,'Gnetum gnemon':0.479467):0.215826,((('Zamia fischeri':0.322302,'Cycas rumphii':0.300676):0.057,'Ginkgo biloba':0.271606):0.060834,(('Cryptomeria japonica':0.200042,'Chamaecyparis obtusa':0.228824):0.170885,('Pseudotsuga menziesii':0.241949,(Picea:0.141626,Pinus:0.169624):0.052242):0.129894):0.049327):0.047049):0.098422,((((('Liriodendron tulipifera':0.334479,('Persea americana':0.342949,'Saruma henryi':0.372527):0.015502):0.064675,(('Eschscholzia californica':0.430892,'Aquilegia formosa':0.377534):0.052247,(((('Tamarix androssowii':0.60397,('Beta vulgaris':0.345591,'Mesembryanthemum crystallinum':0.33867):0.107527):0.074659,'Vaccinium corymbosum':0.41258):0.032744,(((('Coffea canephora':0.266195,Hedyotis:0.407858):0.087861,(('Mimulus guttatus':0.339965,'Antirrhinum majus':0.274112):0.044652,('Triphysaria versicolor':0.321,('Ocimum basilicum':0.272965,'Salvia miltiorrhiza':0.272791):0.049078):0.038755):0.079384):0.033469,(((Solanum:0.199611,'Capsicum annuum':0.226784):0.051783,Nicotiana:0.210382):0.122965,Ipomoea:0.380052):0.055467):0.047129,(('Gerbera hybrid':0.242084,(('Cichorium intybus':0.181727,(Lactuca:0.204991,Taraxacum:0.213189):0.03085):0.07751,('Zinnia elegans':0.388316,('Stevia rebaudiana':0.265945,Helianthus:0.226856):0.010499):0.055298):0.039404):0.160658,('Panax ginseng':0.355625,'Cyclamen persicum':0.518504):0.072672):0.0456):0.040645):0.028313,(((('Arachis hypogaea':0.434526,((Glycine:0.204716,Phaseolus:0.257848):0.070357,('Robinia pseudoacacia':0.318089,(((Medicago:0.228765,'Trifolium pratense':0.190647):0.017429,'Pisum sativum':0.225783):0.080405,'Lotus japonicus':0.266236):0.017932):0.022159):0.032484):0.137104,(Cucumis:0.412893,('Juglans regia':0.296116,(Prunus:0.258846,('Fragaria vesca':0.180715,'Rosa hybrid':0.191509):0.164046):0.070138):0.016995):0.028113):0.038315,(((Citrus:0.13188,'Poncirus trifoliata':0.119153):0.221297,('Theobroma cacao':0.264605,Gossypium:0.291327):0.120347):0.048142,(('Arabidopsis thaliana':0.163247,('Thlaspi caerulescens':0.338895,(Brassica:0.224873,'Thellungiella salsuginea':0.212874):0.0182):0.038576):0.342375,(Populus:0.259544,((Euphorbia:0.308093,(('Hevea brasiliensis':0.187799,'Manihot esculenta':0.208457):0.062724,('Linum usitatissimum':0.473479,'Ricinus communis':0.24332):0.035783):0.026707):0.034081,'Bruguiera gymnorrhiza':0.413193):0.022455):0.043882):0.022179):0.026706):0.029104,Vitis:0.289121):0.031602):0.070697):0.053197):0.033294,(('Zantedeschia aethiopica':0.460441,(((('Lycoris longituba':0.341906,'Asparagus officinalis':0.295618):0.025069,'Allium cepa':0.482912):0.055254,'Phalaenopsis equestris':0.604605):0.04901,(('Curcuma longa':0.197577,'Zingiber officinale':0.167181):0.313216,(((Oryza:0.197535,(('Eragrostis tef':0.284242,('Pennisetum glaucum':0.356509,'Panicum virgatum':0.199783):0.022543):0.052436,((Sorghum:0.146297,Saccharum:0.226912):0.027984,Zeamays:0.190556):0.055411):0.067215):0.036664,('Brachypodium distachyon':0.266702,((Triticum:0.265437,('Secale cereale':0.221156,('Aegilops speltoides':0.205078,'Hordeum vulgare':0.190329):0.012064):0.026974):0.048823,('Festuca arundinacea':0.170559,(('Puccinellia tenuiflora':0.287856,'Avena sativa':0.040968):0.137532,(Agrostis:0.272457,Lolium:0.199919):0.024001):0.039332):0.056688):0.023394):0.063189):0.281616,'Ananas comosus':0.378839):0.046706):0.049845):0.034359):0.025635,'Acorus americanus':0.483157):0.042603):0.073053,'Nuphar advena':0.424094):0.020991,'Amborella trichopoda':0.498794):0.181676):0.092403,(('Adiantum capillus-veneris':0.30462,'Ceratopteris richardii':0.410932):0.37855,('Marchantia polymorpha':0.568373,('Tortula ruralis':0.598283,'Physcomitrella patens':0.297846):0.283066):0.157055):0.092403);
+end;
+
+begin figtree;
+	set appearance.backgroundColorAttribute="Default";
+	set appearance.backgroundColour=#ffffff;
+	set appearance.branchColorAttribute="User selection";
+	set appearance.branchColorGradient=false;
+	set appearance.branchLineWidth=1.0;
+	set appearance.branchMinLineWidth=0.0;
+	set appearance.branchWidthAttribute="Fixed";
+	set appearance.foregroundColour=#000000;
+	set appearance.hilightingGradient=false;
+	set appearance.selectionColour=#2d3680;
+	set branchLabels.colorAttribute="User selection";
+	set branchLabels.displayAttribute="Branch times";
+	set branchLabels.fontName="sansserif";
+	set branchLabels.fontSize=8;
+	set branchLabels.fontStyle=0;
+	set branchLabels.isShown=false;
+	set branchLabels.significantDigits=4;
+	set layout.expansion=0;
+	set layout.layoutType="RECTILINEAR";
+	set layout.zoom=0;
+	set legend.attribute=null;
+	set legend.fontSize=10.0;
+	set legend.isShown=false;
+	set legend.significantDigits=4;
+	set nodeBars.barWidth=4.0;
+	set nodeBars.displayAttribute=null;
+	set nodeBars.isShown=false;
+	set nodeLabels.colorAttribute="User selection";
+	set nodeLabels.displayAttribute="Node ages";
+	set nodeLabels.fontName="sansserif";
+	set nodeLabels.fontSize=8;
+	set nodeLabels.fontStyle=0;
+	set nodeLabels.isShown=false;
+	set nodeLabels.significantDigits=4;
+	set nodeShape.colourAttribute=null;
+	set nodeShape.isShown=false;
+	set nodeShape.minSize=10.0;
+	set nodeShape.scaleType=Width;
+	set nodeShape.shapeType=Circle;
+	set nodeShape.size=4.0;
+	set nodeShape.sizeAttribute=null;
+	set polarLayout.alignTipLabels=false;
+	set polarLayout.angularRange=0;
+	set polarLayout.rootAngle=0;
+	set polarLayout.rootLength=100;
+	set polarLayout.showRoot=true;
+	set radialLayout.spread=0.0;
+	set rectilinearLayout.alignTipLabels=false;
+	set rectilinearLayout.curvature=0;
+	set rectilinearLayout.rootLength=100;
+	set scale.offsetAge=0.0;
+	set scale.rootAge=1.0;
+	set scale.scaleFactor=1.0;
+	set scale.scaleRoot=false;
+	set scaleAxis.automaticScale=true;
+	set scaleAxis.fontSize=8.0;
+	set scaleAxis.isShown=false;
+	set scaleAxis.lineWidth=1.0;
+	set scaleAxis.majorTicks=1.0;
+	set scaleAxis.origin=0.0;
+	set scaleAxis.reverseAxis=false;
+	set scaleAxis.showGrid=true;
+	set scaleBar.automaticScale=true;
+	set scaleBar.fontSize=10.0;
+	set scaleBar.isShown=true;
+	set scaleBar.lineWidth=1.0;
+	set scaleBar.scaleRange=0.0;
+	set tipLabels.colorAttribute="User selection";
+	set tipLabels.displayAttribute="Names";
+	set tipLabels.fontName="sansserif";
+	set tipLabels.fontSize=8;
+	set tipLabels.fontStyle=0;
+	set tipLabels.isShown=true;
+	set tipLabels.significantDigits=4;
+	set trees.order=false;
+	set trees.orderType="increasing";
+	set trees.rooting=false;
+	set trees.rootingType="User Selection";
+	set trees.transform=false;
+	set trees.transformType="cladogram";
+end;
+

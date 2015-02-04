@@ -1,0 +1,7 @@
+{
+  "name": "tree-demo-app",
+  "private": true,
+  "dependencies": {
+    "jsPhyloSVG": "https://github.com/Arabidopsis-Information-Portal/jsPhyloSVG.git#v1.55"
+  }
+}

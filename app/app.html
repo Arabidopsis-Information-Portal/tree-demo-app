@@ -1,0 +1,43 @@
+<div class="science-app" data-app-name="tree-demo-app">
+  <h2>Tree Rendering Araport Science App!</h2>
+  <form method="post" name="tree-render">
+    <div class="messages"></div>
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label class="control-label" for="tree">Paste Newick formated tree here!</label>
+          <input class="form-control" type="text" name="tree" id="tree" placeholder="" value="(((Espresso:2,(Milk Foam:2,Espresso Macchiato:5,((Steamed Milk:2,Cappuccino:2,(Whipped Cream:1,Chocolate Syrup:1,Cafe Mocha:3):5):5,Flat White:2):5):5):1,Coffee arabica:0.1,(Columbian:1.5,((Medium Roast:1,Viennese Roast:3,American Roast:5,Instant Coffee:9):2,Heavy Roast:0.1,French Roast:0.2,European Roast:1):5,Brazilian:0.1):1):1,Americano:10,Water:1);">
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label class="control-label" for="tree_type">Pick tree type</label>
+          <select class="form-control" name="tree_type" id="_tree_type">
+            <option value="linear">linear</option>
+            <option value="circular">circular</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <button class="btn btn-primary" type="submit"><i class="fa fa-submit"></i>Submit</button>
+      </div>
+    </div>
+  </form>
+  <form method="post" name="tree-render2">
+    <div class="messages"></div>
+    <div class="col-sm-4">
+      <input type="file" id="files" name="file" />
+      <label class="control-label" for="tree_type">Pick tree type</label>
+      <select class="form-control" name="tree_type" id="_tree_type">
+	<option value="linear">linear</option>
+	<option value="circular">circular</option>
+      </select>
+      <button class="btn btn-primary" type="submit"><i class="fa fa-submit"></i>Submit</button>
+    </div>
+    </div>
+    </form>
+    <div id="TREESPACE">
+    <div id="svgCanvas"> </div>
+    </div>
+    </div>
+    </div>
