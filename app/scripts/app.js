@@ -19,7 +19,6 @@
 	    console.log(dataObject);
 
 	    render_tree(dataObject,this.tree_type.value);
-	
 	});
     });
 
@@ -39,7 +38,7 @@
 	    phylocanvas = new Smits.PhyloCanvas(
 		tree_object,
 		'svgCanvas',
-		1000, 1000,
+		1500, 1500,
 		'circular'
 	    );
 	} else {
@@ -49,7 +48,7 @@
 		1000, 2000
 	    );
 	}
-	$('#files').replaceWith($('#files').clone(true));
+	//$('#files').replaceWith($('#files').clone(true));
     }
     
     function handleFileSelect(evt) {
@@ -65,12 +64,12 @@
 		    // Render tree text as svg
 		    var string =  e.target.result;
 
+		    document.getElementById('tree').setAttribute('value', string);
+		    
 		    var dataObject = { newick: string };
 
 		    console.log(dataObject);
 		    console.log(string);
-
-		    render_tree(dataObject);
 		};
 	    })(f);
 
