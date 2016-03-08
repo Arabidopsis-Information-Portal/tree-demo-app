@@ -9,14 +9,7 @@
             </div>
             <div class="form-group">
                 <label class="control-label" for="tree">Or paste Newick formated tree here.</label>
-                <textarea rows="3" class="form-control" name="tree" id="tree">(((Espresso:2,(Milk Foam:2,Espresso Macchiato:5,((Steamed Milk:2,Cappuccino:2,(Whipped Cream:1,Chocolate Syrup:1,Cafe Mocha:3):5):5,Flat White:2):5):5):1,Coffee arabica:0.1,(Columbian:1.5,((Medium Roast:1,Viennese Roast:3,American Roast:5,Instant Coffee:9):2,Heavy Roast:0.1,French Roast:0.2,European Roast:1):5,Brazilian:0.1):1):1,Americano:10,Water:1);</textarea>
-            </div>
-            <div class="form-group">
-                <label class="control-label" for="tree_type">Pick tree type</label>
-                <select class="form-control" name="tree_type" id="tree_type">
-                    <option value="linear">linear</option>
-                    <option value="circular">circular</option>
-                </select>
+                <textarea rows="3" class="form-control" name="tree" id="tree">(((C.elegans,Fly),(((((((((Tasmanian Devil,Wallaby,Opossum),((Armadillo,Sloth),(Rock hyrax,Tenrec,Elephant),(((Rabbit,Pika),(((Rat,Mouse),Kangaroo rat,Squirrel),Guinea Pig)),((Mouse lemur,Bushbaby),((((((Chimp,Human,Gorilla),Orangutan),Gibbon),Macaque),Marmoset),Tarsier)),Tree Shrew),((Microbat,Flying fox),(Hedgehog,Shrew),((Panda,Dog,Domestic ferret),Cat),((Cow,Sheep),Pig,Alpaca,Dolphin),Horse))),Platypus),((((Collared flycatcher,Zebra finch),(Chicken,Turkey),Duck),Chinese softshell turtle),Anole lizard)),Xenopus),Coelacanth),(((Zebrafish,Cave fish),((((Medaka,Platyfish),Stickleback),(Fugu,Tetraodon),Tilapia),Cod)),Spotted gar)),Lamprey),(C.savignyi,C.intestinalis))),S.cerevisiae);</textarea>
             </div>
             <div class="form-group">
                 <button class="btn btn-success" type="submit" id="drawButton">Draw</button>
@@ -24,7 +17,7 @@
             </div>
         </form>
     </div>
-    <div id="TREESPACE">
-        <div id="svgCanvas"> </div>
+    <div id="tree-space">
+        <div id="tree-canvas"> </div>
     </div>
 </div>

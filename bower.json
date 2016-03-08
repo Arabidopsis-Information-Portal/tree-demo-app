@@ -2,6 +2,7 @@
   "name": "tree-viewer-app",
   "private": true,
   "dependencies": {
-    "jsPhyloSVG": "https://github.com/Arabidopsis-Information-Portal/jsPhyloSVG.git#v1.55"
+    "d3": "^3.5.16",
+    "tnt.tree": "https://github.com/Arabidopsis-Information-Portal/tnt.tree.git#0.1.2"
   }
 }
