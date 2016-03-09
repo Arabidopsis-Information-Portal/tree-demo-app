@@ -13,6 +13,14 @@
     window.addEventListener('Agave::ready', function() {
         console.log('Agave ready...');
 
+        var color = function color(node, val) {
+            var name = node.node_name();
+            if (name.toLowerCase().indexOf(val.toLowerCase()) > -1) {
+                return 'steelblue';
+            }
+            return 'black';
+        };
+
         var render_tree = function render_tree(tree_object) {
 
             // DOM element
@@ -23,7 +31,8 @@
             var transition_speed = 2000;
             var node_size = 5;
             var node_stroke = 'black';
-            var node_fill = 'grey';
+            var node_fill = 'steelblue';
+            var label_color = 'steelblue';
             var label_fontsize = 12;
             var label_height = 20;
 
@@ -34,6 +43,7 @@
                     .stroke(node_stroke)
                     .fill(node_fill))
                 .label(tnt.tree.label.text()
+                    .color(label_color)
                     .fontsize(label_fontsize)
                     .height(label_height)
                     .text(function(node) {
@@ -65,6 +75,24 @@
             sel.append('option')
                .attr('value', 'radial')
                .text('radial');
+
+            // set up a search box
+            var search = menu_pane.append('span')
+                .style('margin-left', '50px')
+                .text('Search in tree: ');
+
+            search.append('input')
+                .attr('type', 'text')
+                .on('input', function() {
+                    var val = this.value;
+                    tree.node_display().fill(function(node) {
+                        return color(node, val);
+                    });
+                    tree.label().color(function(node) {
+                        return color(node, val);
+                    });
+                    tree.update_nodes();
+                });
 
             tree(div);
         };
