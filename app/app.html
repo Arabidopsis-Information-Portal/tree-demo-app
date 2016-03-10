@@ -1,10 +1,14 @@
 <div class="science-app" data-app-name="tree-viewer-app">
     <h3>Phylogenetic Tree Viewer</h3>
-    <div class="messages"></div>
     <div class="row">
-        <form id="tree-render" class="col-sm-4">
+        <form id="tree-render" class="col-sm-5">
+            <div class="form-group form-inline">
+                <label class="control-label" for="locus_id">Query for a gene tree that contains AGI ID (e.g. AT3G52430).</label>
+                <input type="text" id="locus_id" name="locus_id" class="form-control" value="AT3G52430" placeholder="Gene name (AGI ID)"/>
+                <button class="btn btn-primary" type="button" id="queryButton">Query</button>
+            </div>
             <div class="form-group">
-                <label class="control-label" for="tree">Upload a Newick formated tree file.</label>
+                <label class="control-label" for="tree">Or upload a Newick formated tree file.</label>
                 <input type="file" id="file" name="file"/>
             </div>
             <div class="form-group">
@@ -14,10 +18,51 @@
             <div class="form-group">
                 <button class="btn btn-success" type="submit" id="drawButton">Draw</button>
                 <button class="btn btn-danger" type="button" id="clearButton">Clear</button>
+                <button class="btn btn-info btn-clipboard" type="button" id="copyButton" data-clipboard-target="#tree"><i class="fa fa-clipboard"></i> Copy to Clipboard</button>
             </div>
         </form>
     </div>
-    <div id="tree-space">
-        <div id="tree-canvas"> </div>
+
+    <br>
+
+    <div id="error"></div>
+    <div id="progress_region" class="hidden">
+        <h4>Searching...</h4>
+        <div class="progress progress-striped active">
+            <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+                <span class="sr-only">Loading Data</span>
+            </div>
+        </div>
+    </div>
+
+    <br>
+
+    <!-- Navigation tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+        <li id="about-tab" class="active"><a href="#about" aria-controls="about" role="tab" data-toggle="tab">About</a></li>
+        <li id="tree-tab"><a href="#tree-space" aria-controls="tree-space" role="tab" data-toggle="tab">Tree</a></li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane fade in active" id="about">
+            <a href="http://ensemblgenomes.org/" target="_blank"><img src="http://ensemblgenomes.org/sites/ensemblgenomes.org/themes/ensemblgenomes/e-ensemblgenomes.png" alt="Ensembl Genomes logo"/></a>
+            <p>This app draws phylogenetic trees from data formatted in Newick format.</p>
+        </div>
+
+        <div role="tabpanel" class="tab-pane fade" id="tree-space">
+            <div id="tree-canvas" class="results-panel"><h4>Please select data to draw a tree.</h4></div>
+        </div>
+    </div>
+
+    <br>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <p>
+                Data &amp; web services provided by
+                <a href="http://ensemblgenomes.org/" target="_blank">EnsemblGenomes <i class="fa fa-external-link"></i></a>.
+            </p>
+        </div>
     </div>
 </div>

@@ -1,6 +1,6 @@
 /*jshint camelcase: false*/
 /*jshint quotmark: true*/
-/* global tnt, d3 */
+/* global tnt, d3, Clipboard */
 (function(window, $, tnt, d3, undefined) {
     'use strict';
     console.log('Hello, Tree Viewer app!');
@@ -12,6 +12,17 @@
     /* Generate Tree */
     window.addEventListener('Agave::ready', function() {
         console.log('Agave ready...');
+        var Agave = window.Agave;
+
+        var init = function init() {
+            console.log( 'Initializing tree-viewer app...' );
+            new Clipboard('.btn-clipboard');
+        };
+
+        var is_valid_agi_identifier = function is_valid_agi_identifier(id) {
+            var pattern = /AT[1-5MC]G[0-9]{5,5}/i;
+            return id.match(pattern) ? true : false;
+        };
 
         var color = function color(node, val) {
             var name = node.node_name();
@@ -22,6 +33,12 @@
         };
 
         var render_tree = function render_tree(tree_object) {
+            // empty the div
+            $('#tree-canvas', appContext).empty();
+
+            // parse the newick format
+            var ntree = tnt.tree.parse_newick(tree_object);
+            console.log('TREE: ' + JSON.stringify(ntree));
 
             // DOM element
             var div = $('#tree-canvas', appContext)[0];
@@ -52,7 +69,7 @@
                         }
                         return '';
                     }))
-                .data(tnt.tree.parse_newick(tree_object))
+                .data(ntree)
                 .layout(tnt.tree.layout.vertical()
                     .width(width)
                     .scale(scale))
@@ -97,6 +114,31 @@
             tree(div);
         };
 
+        var errorMessage = function errorMessage(message) {
+            return '<div class="alert alert-danger fade in" role="alert">' +
+               '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>' +
+               '<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span><span class="sr-only">Error:</span> ' +
+               message + '</div>';
+        };
+
+        var disableForm = function disableForm() {
+            $('#file', appContext).prop('disabled', true);
+            $('#tree', appContext).prop('disabled', true);
+            $('#drawButton', appContext).prop('disabled', true);
+            $('#clearButton', appContext).prop('disabled', true);
+            $('#copyButton', appContext).prop('disabled', true);
+        };
+
+        var enableForm = function enableForm() {
+            $('#file', appContext).prop('disabled', false);
+            $('#tree', appContext).prop('disabled', false);
+            $('#drawButton', appContext).prop('disabled', false);
+            $('#clearButton', appContext).prop('disabled', false);
+            $('#copyButton', appContext).prop('disabled', false);
+        };
+
+        init();
+
         $('#file', appContext).on('change', function(evt) {
             var input_file = evt.target.files[0]; // FileList object
 
@@ -115,17 +157,67 @@
 
         $('#clearButton', appContext).on('click', function () {
             // clear the canvas
-            $('#tree-canvas', appContext).empty();
+            $('#tree-canvas', appContext).html('<h4>Please select data to draw a tree.</h4>');
 
+            $('#locus_id', appContext).val('AT3G52430');
             $('#file', appContext).val('');
             $('#tree_type', appContext).val('linear');
             $('#tree', appContext).val(defaultTree);
+            $('a[href="#about"]', appContext).tab('show');
+        });
+
+        $('#queryButton', appContext).on('click', function (e) {
+            e.preventDefault();
+            var locus_id = $('#locus_id', appContext).val();
+            // validate the locus_id
+            if (! is_valid_agi_identifier(locus_id)) {
+                $('#error', appContext).html(errorMessage('Please enter a valid AGI identifier!'));
+                return;
+            }
+            var qbutton = $(this);
+            qbutton.html('<i class="fa fa-refresh fa-spin"></i> Querying...');
+            qbutton.prop('disabled', true);
+            disableForm();
+            console.log('Query ensemblgenomes genetree for ' + locus_id + '...');
+
+            $.ajax({
+                url: 'https://api.araport.org/community/v0.3/ensemblgenomes/rest_ensemblgenomes_v0.1/access/genetree/member/id/' + locus_id,
+                data: {'content-type': 'text/x-nh', 'nh_format': 'full'},
+                headers: {'Authorization': 'Bearer ' + Agave.token.accessToken},
+                errors: function (err) {
+                    var msg = 'Problem querying for \'' + locus_id + '\' at EnsemblGenomes. Please try again.';
+                    $('#error', appContext).html(errorMessage(msg));
+                    console.error(msg + ': ' + err);
+                    qbutton.html('Query');
+                    qbutton.prop('disabled', false);
+                    enableForm();
+                },
+                success: function (data) {
+                    if (! (data) || data === '') {
+                        var msg = 'Problem querying for \'' + locus_id + '\' at EnsemblGenomes. Please try again.';
+                        $('#error', appContext).html(errorMessage(msg));
+                        console.error(msg);
+                        qbutton.html('Query');
+                        qbutton.prop('disabled', false);
+                        enableForm();
+                        return;
+                    }
+                    $('#tree', appContext).val(data);
+                    qbutton.html('Query');
+                    qbutton.prop('disabled', false);
+                    enableForm();
+                    $('#drawButton', appContext).trigger('click');
+                }
+            });
         });
 
         $('#tree-render', appContext).submit(function(e) {
-            // clear the canvas
-            $('#tree-canvas', appContext).empty();
+            console.log('Submitting form...');
             e.preventDefault();
+
+            // clear the canvas
+            $('#tree-canvas', appContext).html('<h4>Loading tree information...</h4>');
+            $('a[href="#tree-space"]', appContext).tab('show');
             render_tree(this.tree.value);
         });
     });
