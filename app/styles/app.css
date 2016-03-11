@@ -3,7 +3,7 @@
 	margin: 0 3px 5px 3px;
 }
 .tnt_node_display_elem {
-	pointer-events: none;
+	pointer-events: all;
 }
 .tnt_tree_node_proxy {
 	opacity: 0;

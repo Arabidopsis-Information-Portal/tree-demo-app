@@ -26,8 +26,8 @@
 
         var color = function color(node, val) {
             var name = node.node_name();
-            if (name.toLowerCase().indexOf(val.toLowerCase()) > -1) {
-                return 'steelblue';
+            if (name.toLowerCase().indexOf(val.toLowerCase()) > -1 && val !== '') {
+                return 'red';
             }
             return 'black';
         };
@@ -38,27 +38,44 @@
 
             // parse the newick format
             var ntree = tnt.tree.parse_newick(tree_object);
-            console.log('TREE: ' + JSON.stringify(ntree));
 
             // DOM element
             var div = $('#tree-canvas', appContext)[0];
             // tree variables
             var width = 1000;
             var scale = false;
-            var transition_speed = 2000;
+            var transition_speed = 500;
             var node_size = 5;
             var node_stroke = 'black';
             var node_fill = 'steelblue';
-            var label_color = 'steelblue';
+            var node_display_size = 12;
+            var label_color = 'black';
             var label_fontsize = 12;
             var label_height = 20;
 
+            var expanded_node = tnt.tree.node_display.circle()
+                .size(node_size)
+                .fill(node_fill)
+                .stroke(node_stroke);
+
+            var collapsed_node = tnt.tree.node_display.triangle()
+                .size(node_size)
+                .fill(node_fill)
+                .stroke(node_stroke);
+
+            var node_display = tnt.tree.node_display()
+                .size(node_display_size)
+                .display(function(node) {
+                    if (node.is_collapsed()) {
+                        collapsed_node.display().call(this, node);
+                    } else {
+                        expanded_node.display().call(this, node);
+                    }
+                });
+
             // setup tree
             var tree = tnt.tree()
-                .node_display(tnt.tree.node_display.circle()
-                    .size(node_size)
-                    .stroke(node_stroke)
-                    .fill(node_fill))
+                .node_display(node_display)
                 .label(tnt.tree.label.text()
                     .color(label_color)
                     .fontsize(label_fontsize)
@@ -74,6 +91,11 @@
                     .width(width)
                     .scale(scale))
                 .duration(transition_speed);
+
+            tree.on('click', function(node) {
+                node.toggle();
+                tree.update();
+            });
 
             // set up a layout menu
             var menu_pane = d3.select(div).append('div').append('span').text('Layout: ');
@@ -100,6 +122,7 @@
 
             search.append('input')
                 .attr('type', 'text')
+                .attr('id', 'search-tree')
                 .on('input', function() {
                     var val = this.value;
                     tree.node_display().fill(function(node) {
@@ -212,7 +235,6 @@
         });
 
         $('#tree-render', appContext).submit(function(e) {
-            console.log('Submitting form...');
             e.preventDefault();
 
             // clear the canvas
