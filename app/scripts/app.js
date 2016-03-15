@@ -97,6 +97,20 @@
                 tree.update();
             });
 
+            tree.on('mouseover', function(node) {
+                if (node.is_leaf() && node.node_name() !== '') {
+                    console.log('Leaf node = ' + node.node_name());
+                    var url = 'http://ensemblgenomes.org/search/eg/' + node.node_name();
+                    var link = '<a href="' + url + '" target="_blank">' + node.node_name() + '<i class="fa fa-external-link"></i></a>';
+                    tnt.tooltip.table()
+                        .width(220)
+                        .call(this, {
+                            'header':'Node',
+                            'rows': [{'label': 'Ensembl Genomes', 'value': link}]
+                        });
+                }
+            });
+
             // set up a layout menu
             var menu_pane = d3.select(div).append('div').append('span').text('Layout: ');
             var sel = menu_pane.append('select')
