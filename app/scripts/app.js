@@ -7,6 +7,8 @@
 
     var appContext = $('[data-app-name="tree-viewer-app"]');
     var defaultTree = '(((C.elegans,Fly),(((((((((Tasmanian Devil,Wallaby,Opossum),((Armadillo,Sloth),(Rock hyrax,Tenrec,Elephant),(((Rabbit,Pika),(((Rat,Mouse),Kangaroo rat,Squirrel),Guinea Pig)),((Mouse lemur,Bushbaby),((((((Chimp,Human,Gorilla),Orangutan),Gibbon),Macaque),Marmoset),Tarsier)),Tree Shrew),((Microbat,Flying fox),(Hedgehog,Shrew),((Panda,Dog,Domestic ferret),Cat),((Cow,Sheep),Pig,Alpaca,Dolphin),Horse))),Platypus),((((Collared flycatcher,Zebra finch),(Chicken,Turkey),Duck),Chinese softshell turtle),Anole lizard)),Xenopus),Coelacanth),(((Zebrafish,Cave fish),((((Medaka,Platyfish),Stickleback),(Fugu,Tetraodon),Tilapia),Cod)),Spotted gar)),Lamprey),(C.savignyi,C.intestinalis))),S.cerevisiae);';
+    var base_ensembl_url = 'http://ensemblgenomes.org/id/';
+    var base_araport_url = 'https://apps.araport.org/thalemine/portal.do?class=Gene&externalids=';
 
 
     /* Generate Tree */
@@ -20,7 +22,7 @@
         };
 
         var is_valid_agi_identifier = function is_valid_agi_identifier(id) {
-            var pattern = /AT[1-5MC]G[0-9]{5,5}/i;
+            var pattern = /AT[1-5MC]G[0-9]{5,5}(\.[0-9])?/i;
             return id.match(pattern) ? true : false;
         };
 
@@ -99,14 +101,19 @@
 
             tree.on('mouseover', function(node) {
                 if (node.is_leaf() && node.node_name() !== '') {
-                    console.log('Leaf node = ' + node.node_name());
-                    var url = 'http://ensemblgenomes.org/search/eg/' + node.node_name();
-                    var link = '<a href="' + url + '" target="_blank">' + node.node_name() + '<i class="fa fa-external-link"></i></a>';
+                    var eg_url = base_ensembl_url + node.node_name();
+                    var eg_link = '<a href="' + eg_url + '" target="_blank">' + node.node_name() + '<i class="fa fa-external-link"></i></a>';
+                    var rows = [{'label': 'Ensembl Genomes', 'value': eg_link}];
+                    if (is_valid_agi_identifier(node.node_name())) {
+                        var a_url = base_araport_url + node.node_name();
+                        var a_link = '<a href="' + a_url + '" target="_blank">' + node.node_name() + '<i class="fa fa-external-link"></i></a>';
+                        rows.push({'label': 'Araport', 'value': a_link});
+                    }
                     tnt.tooltip.table()
                         .width(220)
                         .call(this, {
                             'header':'Node',
-                            'rows': [{'label': 'Ensembl Genomes', 'value': link}]
+                            'rows': rows
                         });
                 }
             });
@@ -196,6 +203,9 @@
             // clear the canvas
             $('#tree-canvas', appContext).html('<h4>Please select data to draw a tree.</h4>');
 
+            // clear the errors
+            $('#error', appContext).emtpy();
+
             $('#locus_id', appContext).val('AT3G52430');
             $('#file', appContext).val('');
             $('#tree_type', appContext).val('linear');
@@ -211,6 +221,10 @@
                 $('#error', appContext).html(errorMessage('Please enter a valid AGI identifier!'));
                 return;
             }
+            // rest.ensemblgenomes.org/genetree/id/{id} seems to barf when searching transcripts
+            if (locus_id.indexOf('.') !== -1) {
+                locus_id = locus_id.slice(0, locus_id.indexOf('.'));
+            }
             var qbutton = $(this);
             qbutton.html('<i class="fa fa-refresh fa-spin"></i> Querying...');
             qbutton.prop('disabled', true);
@@ -221,10 +235,10 @@
                 url: 'https://api.araport.org/community/v0.3/ensemblgenomes/rest_ensemblgenomes_v0.1/access/genetree/member/id/' + locus_id,
                 data: {'content-type': 'text/x-nh', 'nh_format': 'full'},
                 headers: {'Authorization': 'Bearer ' + Agave.token.accessToken},
-                errors: function (err) {
+                error: function (err) {
                     var msg = 'Problem querying for \'' + locus_id + '\' at EnsemblGenomes. Please try again.';
                     $('#error', appContext).html(errorMessage(msg));
-                    console.error(msg + ': ' + err);
+                    console.error('Error querying for \'' + locus_id + '\' at EnsemblGenomes --> Status: ' + err.status + ' (' + err.statusText + ')  Response: ' + err.responseText);
                     qbutton.html('Query');
                     qbutton.prop('disabled', false);
                     enableForm();
