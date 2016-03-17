@@ -204,7 +204,7 @@
             $('#tree-canvas', appContext).html('<h4>Please select data to draw a tree.</h4>');
 
             // clear the errors
-            $('#error', appContext).emtpy();
+            $('#error', appContext).empty();
 
             $('#locus_id', appContext).val('AT3G52430');
             $('#file', appContext).val('');
