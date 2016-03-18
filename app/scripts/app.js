@@ -105,7 +105,11 @@
                     var eg_link = '<a href="' + eg_url + '" target="_blank">' + node.node_name() + '<i class="fa fa-external-link"></i></a>';
                     var rows = [{'label': 'Ensembl Genomes', 'value': eg_link}];
                     if (is_valid_agi_identifier(node.node_name())) {
-                        var a_url = base_araport_url + node.node_name();
+                        var locus_id = node.node_name();
+                        if (locus_id.indexOf('.') !== -1) {
+                            locus_id = locus_id.slice(0, locus_id.indexOf('.'));
+                        }
+                        var a_url = base_araport_url + locus_id;
                         var a_link = '<a href="' + a_url + '" target="_blank">' + node.node_name() + '<i class="fa fa-external-link"></i></a>';
                         rows.push({'label': 'Araport', 'value': a_link});
                     }
