@@ -1,12 +1,16 @@
 {
-  "icon": "",
-  "name": "tree-viewer-app",
-  "description": "View phylogenetic trees in newick tree format",
+  "namespace" : "tree-viewer-app",
+  "name": "Tree Viewer App",
+  "description": "View phylogenetic trees in newick tree format from EMBL-EBI's Ensembl Genomes  Gene tree.",
   "html": "app.html",
   "scripts": [
     "scripts/app.js"
   ],
   "styles": [
     "styles/app.css"
-  ]
+  ],
+  "tags": [
+    "arabidopsis", "gene", "newick", "tree", "Ensembl Genomes"
+  ],
+  "icon": "app/images/logo.png"
 }
