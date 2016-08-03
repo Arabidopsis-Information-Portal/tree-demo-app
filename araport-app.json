@@ -12,5 +12,6 @@
   "tags": [
     "arabidopsis", "gene", "newick", "tree", "Ensembl Genomes"
   ],
-  "icon": "app/images/logo.png"
+  "icon": "app/images/logo.png",
+  "fullscreen": "require"
 }
